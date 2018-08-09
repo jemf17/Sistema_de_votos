@@ -8,7 +8,7 @@ public class Votos {
     public Votos() {
         positivo = 0;
         negativo = 0;
-    }
+    } 
 
     public Votos(int positivo, int negativo) {
         this.negativo = negativo;
@@ -29,6 +29,14 @@ public class Votos {
 
     public void setNegativo(int negativo) {
         this.negativo = negativo;
+    }
+
+    public void addPositivo() {
+        this.positivo += 1;
+    }
+
+    public void addNegativo() {
+        this.negativo += 1;
     }
 
     
