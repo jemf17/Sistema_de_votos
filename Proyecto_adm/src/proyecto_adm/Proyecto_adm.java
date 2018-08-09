@@ -31,13 +31,13 @@ public class Proyecto_adm {
             listaP.add(guardar.getGuardar());
             }}
         ArrayList nuevaLista= new ArrayList<>();
-        		aniadirArchivo(nuevaLista);
+        		base_de_datos_guardar.añadirArchivos(nuevaLista);
  
 		// lista para recibir los objetos estudiantes desde el archivo
 		ArrayList listaLeida = new ArrayList<>();
  
 		// asigne a la lista los objetos
-		listaLeida = leerArchivo();
+		listaLeida = base_de_datos_guardar.leerArchivo();
 		for (int i = 0;i<5;++i) {
                     Guardar g = new Guardar();
 			System.out.println(guardar.getGuardar()+" , "+ guardar.getPublicacion()+" , "+ guardar.getPorcentaje()+" , "+guardar.getNegativo()
@@ -54,7 +54,4 @@ public class Proyecto_adm {
     }
 //    
 
-    private static void aniadirArchivo(ArrayList nuevaLista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
