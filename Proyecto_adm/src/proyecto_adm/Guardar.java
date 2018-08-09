@@ -20,5 +20,9 @@ public Guardar(String guardar){
     public void setGuardar(String guardar) {
         this.guardar = guardar;
     }
+    @Override
+    public String toString() {
+        return "Guardardo: " +  guardar ;
+    }
 
 }

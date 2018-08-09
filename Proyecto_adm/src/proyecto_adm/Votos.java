@@ -10,16 +10,13 @@ package proyecto_adm;
  * @author jemf
  */
 public class Votos {
-    private int positivo;
-    private int negativo;
-    private int nulo;
+    int positivo;
+    int negativo;
 public Votos(){
     positivo = 0;
-    negativo = 0;
-    nulo = 0;}
-public Votos(int positivo, int negativo, int nulo){
+    negativo = 0;}
+public Votos(int positivo, int negativo){
     this.negativo = negativo;
-    this.nulo = nulo;
     this.positivo = positivo;}
 
     public int getPositivo() {
@@ -37,13 +34,4 @@ public Votos(int positivo, int negativo, int nulo){
     public void setNegativo(int negativo) {
         this.negativo = negativo;
     }
-
-    public int getNulo() {
-        return nulo;
-    }
-
-    public void setNulo(int nulo) {
-        this.nulo = nulo;
-    }
-
 }

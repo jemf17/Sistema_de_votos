@@ -11,23 +11,29 @@ package proyecto_adm;
  */
 public class Publicaciones extends Votos{
     private String publicacion;
-    private int porsentaje;
+    private float porcentaje;
    
 public Publicaciones(){
     publicacion = "";}
 
-public Publicaciones(String publicacion,int porsentaje,int positivo,int negativo){
-    super(positivo, negativo);
+public Publicaciones(String publicacion, float porcentaje, int negativo, int positivo ){
+    super(negativo, positivo);
     this.publicacion = publicacion;
-    this.porsentaje = porsentaje;
+    this.porcentaje = porcentaje;
     
 }
-    public int getPorsentaje() {
-        return porsentaje;
+    public float getPorcentaje() {
+        int suma = positivo + negativo;
+        float porsentP = positivo*100/suma;
+        float porsentN = negativo*100/suma;
+        if (porsentN < porsentP){
+            return porsentP;}
+        else{
+            return porsentN;}
     }
 
-    public void setPorsentaje(int porsentaje) {
-        int suma = positivo + negativo;
+    public void setPorcentaje(float porsentaje) {
+        this.porcentaje = porsentaje;
     }
 
     public String getPublicacion() {
