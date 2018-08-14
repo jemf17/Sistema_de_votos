@@ -24,7 +24,8 @@ public class Proyecto_adm {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Adm().setVisible(true);
+                Adm adm = new Adm();
+                        adm.setVisible(true);
             }
         });
     }

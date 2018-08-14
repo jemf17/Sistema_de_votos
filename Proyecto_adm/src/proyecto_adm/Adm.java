@@ -41,6 +41,11 @@ public class Adm extends javax.swing.JFrame {
         jLabel1.setText("publicar;");
 
         publicar.setText("publicar");
+        publicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publicarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("ultimas publicaciones;");
 
@@ -94,26 +99,33 @@ public class Adm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- public void publicar() {
-        escriP.setText("");}
-    public void actionPerformed(ActionEvent e){
-    if (e.getSource().equals(publicar)){
+
+    private void publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publicarActionPerformed
         Time tiem = new Time();
         publicar();
         tiem.Contar();
-        int t = 7200;
         Adm adm = new Adm();
-    if(tiem.getSegundos()< t){       
-        adm.setVisible(false);} 
-    else {
-        adm.setVisible(true);
-        tiem.Detener();
+        boolean a = true;
+        while (a){
+        if (tiem.getSegundos() < 2) {
+            adm.setVisible(false);
+            a = true;
+        } else {
+            adm.setVisible(false);
+            //sadm.setVisible(true);
+            tiem.Detener();
+            a = false;
         }}
+    }//GEN-LAST:event_publicarActionPerformed
+    public void publicar() {
+        escriP.setText("");
     }
+
+
     /**
      * @param args the command line arguments
      */
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea ArrayP;
