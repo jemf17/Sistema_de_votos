@@ -28,7 +28,7 @@ public class Time {
     {
         this.segundos=0;
         timer = new Timer();
-        timer.schedule(new Contador(), 0, 1000);
+        timer.schedule(new Contador(), 0, 8000);
     }
     //Detiene el contador
     public void Detener() {

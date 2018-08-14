@@ -103,7 +103,7 @@ public class Adm extends javax.swing.JFrame {
         tiem.Contar();
         int t = 7200;
         Adm adm = new Adm();
-    if(tiem.Contar() < t){       
+    if(tiem.getSegundos()< t){       
         adm.setVisible(false);} 
     else {
         adm.setVisible(true);
