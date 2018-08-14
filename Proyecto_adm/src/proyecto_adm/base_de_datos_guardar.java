@@ -15,14 +15,15 @@ public class base_de_datos_guardar {
         ArrayList nuevaLista= new ArrayList<>();
     public static void crearArchivo(ArrayList lista) throws IOException{
                         Guardar guardar = new Guardar();
+                        Votos v = new Votos();
                         FileWriter write = null;
                     
-			write = new FileWriter("bace de datos/guardar.txt");
+			write = new FileWriter("Sistema_de_votos/bace de dato/guardar.txt");
 			BufferedWriter bfwriter = new BufferedWriter(write);
 			
                         for (int i = 0;i<5;++i) {
-                        bfwriter.write(guardar.getGuardar()+" , "+ guardar.getPublicacion()+" , "+ guardar.getPorcentaje()+" , "+guardar.getNegativo()
-                        +" , "+guardar.getPositivo());
+                        bfwriter.write(guardar.getGuardar()+" , "+ guardar.getPublicacion()+" , "+ guardar.getPorcentaje()+" , "+v.getNegativo()
+                        +" , "+v.getPositivo());
 			}
 			//cierra el buffer intermedio
 			bfwriter.close();
@@ -30,7 +31,7 @@ public class base_de_datos_guardar {
 		
 			}
     public static ArrayList leerArchivo(){
-        File file = new File("bace de datos/guardar.txt");
+        File file = new File("Sistema_de_votos/bace de dato/guardar.txt");
             ArrayList listaP = new ArrayList<>();
             Scanner scanner;
         try {
@@ -44,10 +45,11 @@ public class base_de_datos_guardar {
                 //parte la cadena recibida cada vez que encuentre una coma
                 delimitar.useDelimiter("\\s*,\\s*");
                 Guardar g = new Guardar();
+                Votos v = new Votos();
                 g.setGuardar(delimitar.next());
-                g.setNegativo(delimitar.nextByte());
+                v.setNegativo(delimitar.nextByte());
                 g.setPorcentaje(delimitar.nextByte());
-                g.setPositivo(delimitar.nextByte());
+                v.setPositivo(delimitar.nextByte());
                 g.setPublicacion(delimitar.next());
                 listaP.add(g);
             }
@@ -56,15 +58,16 @@ public class base_de_datos_guardar {
         }return listaP;
 }
 public static void añadirArchivos(ArrayList lista){
-    		FileWriter flwriter = null;
+    		FileWriter write = null;
                 Guardar guardar = new Guardar();
+                Votos v = new Votos();
 		try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
-			flwriter = new FileWriter("C:\\archivos\\estudiantes.txt", true);
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+			write = new FileWriter("Sistema_de_votos/bace de dato/guardar.txt", true);
+			BufferedWriter bfwriter = new BufferedWriter(write);
 			for (int i = 0;i<5;++i) {
 				//escribe los datos en el archivo
-				bfwriter.write(guardar.getGuardar()+" , "+ guardar.getPublicacion()+" , "+ guardar.getPorcentaje()+" , "+guardar.getNegativo()
-                        +" , "+guardar.getPositivo());
+				bfwriter.write(guardar.getGuardar()+" , "+ guardar.getPublicacion()+" , "+ guardar.getPorcentaje()+" , "+v.getPositivo()
+                        +" , "+v.getNegativo());
 			}
 			bfwriter.close();
 			System.out.println("Archivo modificado satisfactoriamente..");
@@ -72,9 +75,9 @@ public static void añadirArchivos(ArrayList lista){
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (flwriter != null) {
+			if (write != null) {
 				try {
-					flwriter.close();
+					write.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

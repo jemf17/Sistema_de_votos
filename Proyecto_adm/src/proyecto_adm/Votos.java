@@ -13,8 +13,8 @@ public class Votos {
     int positivo;
     int negativo;
 public Votos(){
-    positivo = 0;
-    negativo = 0;}
+    positivo = 5;
+    negativo = 3;}
 public Votos(int positivo, int negativo){
     this.negativo = negativo;
     this.positivo = positivo;}

@@ -7,6 +7,7 @@ package proyecto_adm;
 
 public class Guardar extends Publicaciones{
     private String guardar;
+    private Votos votos;
 
 public Guardar(){
     guardar = "";}
@@ -14,11 +15,11 @@ public Guardar(String guardar){
     this.guardar = guardar;}
 
     public String getGuardar() {
-        return super.getPublicacion()+ "" + super.getPorcentaje();
+        return guardar;
     }
 
     public void setGuardar(String guardar) {
-        this.guardar = guardar;
+        guardar = super.getPublicacion()+ "" + super.getPorcentaje();
     }
     @Override
     public String toString() {
