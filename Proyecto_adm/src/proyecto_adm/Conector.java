@@ -57,7 +57,7 @@ public class Conector {
         int re = 0;
         try{
             psInsertar.setString(2, g.getGuardar());
-            if (re >0){
+            if (re > 0){
                 JOptionPane.showInternalMessageDialog(null, "Reguistro modificado");}
             }catch (SQLException e){
             System.out.print("error");}
@@ -67,4 +67,8 @@ public class Conector {
         return re;
         
     }
+   public void printMessages() throws SQLException{
+   
+       
+   }
 }
