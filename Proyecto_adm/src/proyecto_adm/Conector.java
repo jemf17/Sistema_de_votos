@@ -6,6 +6,7 @@
 package proyecto_adm;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class Conector {
     private PreparedStatement psInsertar;
@@ -23,5 +24,21 @@ public class Conector {
         psInsertar.setString(2, p.getPublicacion());
         
         psInsertar.executeUpdate();
+    }
+    public int actualizar(Publicaciones p) throws SQLException{
+        String sql = ""; 
+        int re = 0;
+        try{
+            psInsertar.setFloat(1, p.getPorcentaje());
+            psInsertar.setString(2, p.getPublicacion());
+            if (re >0){
+                JOptionPane.showInternalMessageDialog(null, "Reguistro modificado");}
+            }catch (SQLException e){
+            System.out.print("error");}
+        finally{
+        psInsertar = null;
+        con.close();}
+        return re;
+        
     }
 }
