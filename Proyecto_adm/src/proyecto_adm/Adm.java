@@ -101,21 +101,8 @@ public class Adm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void publicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publicarActionPerformed
-        Time tiem = new Time();
         publicar();
-        tiem.Contar();
-        Adm adm = new Adm();
-        boolean a = true;
-        while (a){
-        if (tiem.getSegundos() < 2) {
-            adm.setVisible(false);
-            a = true;
-        } else {
-            adm.setVisible(false);
-            //sadm.setVisible(true);
-            tiem.Detener();
-            a = false;
-        }}
+        
     }//GEN-LAST:event_publicarActionPerformed
     public void publicar() {
         escriP.setText("");
