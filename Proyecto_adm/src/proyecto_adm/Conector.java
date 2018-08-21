@@ -41,4 +41,30 @@ public class Conector {
         return re;
         
     }
+   public void insertar_2(Guardar g) throws SQLException{
+        String url = "";
+        con = DriverManager.getConnection(url);
+        statem = con.createStatement();
+        
+        psInsertar = con.prepareStatement("");
+        
+        psInsertar.setString(1, g.getGuardar());
+        
+        psInsertar.executeUpdate();
+    }
+   public int actualizar_2(Guardar g) throws SQLException{
+        String sql = ""; 
+        int re = 0;
+        try{
+            psInsertar.setString(2, g.getGuardar());
+            if (re >0){
+                JOptionPane.showInternalMessageDialog(null, "Reguistro modificado");}
+            }catch (SQLException e){
+            System.out.print("error");}
+        finally{
+        psInsertar = null;
+        con.close();}
+        return re;
+        
+    }
 }
