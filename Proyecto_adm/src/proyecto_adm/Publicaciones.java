@@ -13,17 +13,27 @@ public class Publicaciones {
     private String publicacion;
     private float porcentaje;
     private Votos votos;
+    private String table_name;
    
 public Publicaciones(){
     publicacion = "";
     porcentaje = 0;}
 
-public Publicaciones(String publicacion, float porcentaje, Votos votos ){
+public Publicaciones(String publicacion, float porcentaje, Votos votos, String table_name ){
     this.votos = votos;
+    this.table_name = table_name;
     this.publicacion = publicacion;
     this.porcentaje = porcentaje;
     
 }
+
+    public String getTable_name() {
+        return "votos";
+    }
+
+    public void setTable_name(String table_name) {
+        this.table_name = table_name;
+    }
     public float getPorcentaje() {
         return porcentaje;
     }
