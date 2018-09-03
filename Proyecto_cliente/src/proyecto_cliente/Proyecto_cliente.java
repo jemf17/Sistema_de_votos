@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto_usuario;
+package proyecto_cliente;
+
+import java.sql.SQLException;
 
 /**
  *
- * @author jemf
+ * @author lautaro
  */
-public class Proyecto_usuario {
+public class Proyecto_cliente {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Interfaz_Usuario interfaz=new Interfaz_Usuario();
     }
     
 }

@@ -14,8 +14,16 @@ public class Proyecto_adm {
 //    /**
 //     * @param args the command line arguments
 //     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-}
+ public static void main(String args[]) throws Exception {
+        
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Adm adm = new Adm();
+                        adm.setVisible(true);
+            }
+        });
+    }
 //    
+
 }
