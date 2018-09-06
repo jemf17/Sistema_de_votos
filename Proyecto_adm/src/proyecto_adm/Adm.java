@@ -5,11 +5,12 @@
  */
 package proyecto_adm;
 
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,8 +21,18 @@ public class Adm extends javax.swing.JFrame {
     /**
      * Creates new form Adm
      */
-    public Adm() {
+    public Adm() throws SQLException, ClassNotFoundException {
+        t = new Thread(new Lector());
+        cnx = new Conexion();
         initComponents();
+        setVisible(true);
+        contador = cnx.conseguirId(cnx.obtener());
+        if(cnx.getPropuesta(Conexion.obtener(), contador) == null){
+            contador+=1;
+        }
+        pack();
+        myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+        t.start();
     }
 
     /**
@@ -39,6 +50,7 @@ public class Adm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPropuesta = new javax.swing.JTextArea();
         scrollPane1 = new java.awt.ScrollPane();
+        myPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +68,19 @@ public class Adm extends javax.swing.JFrame {
         txtPropuesta.setColumns(20);
         txtPropuesta.setRows(5);
         jScrollPane2.setViewportView(txtPropuesta);
+
+        javax.swing.GroupLayout myPanelLayout = new javax.swing.GroupLayout(myPanel);
+        myPanel.setLayout(myPanelLayout);
+        myPanelLayout.setHorizontalGroup(
+            myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 543, Short.MAX_VALUE)
+        );
+        myPanelLayout.setVerticalGroup(
+            myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 411, Short.MAX_VALUE)
+        );
+
+        scrollPane1.add(myPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,23 +135,58 @@ public class Adm extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Adm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         txtPropuesta.setText("");
     }//GEN-LAST:event_publicarActionPerformed
-    
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel myPanel;
     private javax.swing.JButton publicar;
     private java.awt.ScrollPane scrollPane1;
     private javax.swing.JTextArea txtPropuesta;
     // End of variables declaration//GEN-END:variables
     private Conexion conexion;
+    private Conexion cnx;
+    private Thread t;
+    private int contador,num_panel;
+    private ArrayList<Panel_publicaciones> paneles = new ArrayList<Panel_publicaciones>();
+
+    private class Lector implements Runnable {
+
+        public void run() {
+            while (true) {
+
+                try {
+                    if (paneles.size() == 0 && cnx.getPropuesta(Conexion.obtener(), contador) != null) {
+                        paneles.add(new Panel_publicaciones(cnx.getPropuesta(cnx.obtener(), contador), contador));
+                        myPanel.add(paneles.get(num_panel));
+                        pack();
+                        contador += 1;
+                        num_panel+=1;
+
+                    } else if (cnx.getPropuesta(Conexion.obtener(), contador) != null && paneles.size() != 0 && paneles.get(num_panel-1).getText() != null) {
+                        if (!cnx.getPropuesta(cnx.obtener(), contador).equals(paneles.get(num_panel-1).getText())) {
+                            paneles.add(new Panel_publicaciones(cnx.getPropuesta(cnx.obtener(), contador), contador));
+                            myPanel.add(paneles.get(num_panel));
+                            pack();
+                            contador += 1;
+                            num_panel+=1;
+
+                        }
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Adm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Adm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 }

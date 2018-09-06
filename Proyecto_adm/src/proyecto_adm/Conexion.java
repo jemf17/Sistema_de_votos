@@ -12,6 +12,7 @@ public class Conexion {
 
     private static Connection cnx = null;
 
+    //conecta a la base de datos
     public static Connection obtener() throws SQLException, ClassNotFoundException {
         if (cnx == null) {
             try {
@@ -24,53 +25,6 @@ public class Conexion {
             }
         }
         return cnx;
-    }
-
-    public boolean logUser(Connection conection, String user) throws SQLException {
-        PreparedStatement consulta;
-        try {
-            consulta = conection.prepareStatement("select user from Login where user='" + user + "'");
-            ResultSet resultado = consulta.executeQuery();
-            if (resultado.next() && resultado.getString("user").equals(user)) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        }
-    }
-
-    public boolean registro(Connection conexion, String usuario, String contraseña) throws SQLException {
-        PreparedStatement consulta;
-        try {
-            consulta = conexion.prepareStatement("select user from Login where user='" + usuario + "'");
-            ResultSet resultado = consulta.executeQuery();
-            if (resultado.next() && resultado.getString("user").equals(usuario)) {
-                return false;
-            } else {
-                consulta = conexion.prepareStatement("insert into Login (user,pass) values (" + "'" + usuario + "'" + "," + "'" + contraseña + "'" + ")");
-                consulta.executeUpdate();
-                return true;
-            }
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        }
-    }
-
-    public boolean logPass(Connection conection, String pass) throws SQLException {
-        PreparedStatement consulta;
-        try {
-            consulta = conection.prepareStatement("select pass from Login where pass='" + pass + "'");
-            ResultSet resultado = consulta.executeQuery();
-            if (resultado.next() && resultado.getString("pass").equals(pass)) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        }
     }
 
     public static void cerrar() throws SQLException {
@@ -108,6 +62,66 @@ public class Conexion {
         PreparedStatement consulta;
         consulta = conexion.prepareStatement("insert into proyecto.propuestas (propuesta) values ('"+propuesta+"');");
         consulta.execute();
+        consulta = conexion.prepareStatement("insert into proyecto.historial (valor) values ('1');");
+        consulta.execute();
+    }
+    
+    public float getPorcentajePositivos(Connection conexion, int contador) throws SQLException {
+        PreparedStatement consulta;
+        consulta = conexion.prepareStatement("select * from propuestas where id="+contador);
+        ResultSet res = consulta.executeQuery();
+        float total = 0;
+        int si = 0;
+        int no = 0;
+        try {
+            while (res.next()) {
+                si += res.getInt("si");
+                no += res.getInt("no");
+                total += si+no;
+            }
+            return (si*100)/total;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    
+    public float getPorcentajeNegativos(Connection conexion, int contador) throws SQLException {
+        PreparedStatement consulta;
+        consulta = conexion.prepareStatement("select * from propuestas where id="+contador);
+        ResultSet res = consulta.executeQuery();
+        float total = 0;
+        int si = 0;
+        int no = 0;
+        try {
+            while (res.next()) {
+                si += res.getInt("si");
+                no += res.getInt("no");
+                total += si+no;
+            }
+            return (no*100)/total;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    
+    public void eliminarPropuesta(Connection conexion,int id) throws SQLException{
+        PreparedStatement consulta;
+        consulta=conexion.prepareStatement( "DELETE FROM propuestas WHERE id='"+id+"'");
+        consulta.execute();
+    }
+    
+    public int conseguirId(Connection conexion) throws SQLException{
+        int id=0;
+        PreparedStatement consulta;
+        consulta=conexion.prepareStatement("select id from historial order by id desc limit 1");
+        ResultSet res=consulta.executeQuery();
+        while (res.next()){
+            id=res.getInt("id");
+        }
+        return id;
+    }
+    
     }
 
-}

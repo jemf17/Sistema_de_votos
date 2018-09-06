@@ -13,11 +13,14 @@ import java.sql.SQLException;
  */
 public class Proyecto_cliente {
 
-    /**
-     * @param args the command line arguments
+    /**R
+     * @param args the command line aRrguments
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Interfaz_Usuario interfaz=new Interfaz_Usuario();
+        
+        Conexion cnx = new Conexion();
+       
     }
     
 }

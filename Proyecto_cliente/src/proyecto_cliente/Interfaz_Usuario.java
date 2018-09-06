@@ -5,15 +5,11 @@
  */
 package proyecto_cliente;
 
-import java.awt.GridBagConstraints;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -30,7 +26,11 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         initComponents();
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
         setVisible(true);
-        contador = 1;
+        num_prop=0;
+        contador = cnx.getId(cnx.obtener());
+        if(cnx.getPropuesta(Conexion.obtener(), contador) == null){
+            contador+=1;
+        }
         t.start();
     }
 
@@ -149,6 +149,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     private Thread t;
     private int contador;
     private ArrayList<Panel_Votacion> paneles = new ArrayList<Panel_Votacion>();
+    int num_prop;
     
 
     private class Lector implements Runnable {
@@ -159,16 +160,17 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 try {
                     if (paneles.size() == 0 && cnx.getPropuesta(Conexion.obtener(), contador) != null) {
                         paneles.add(new Panel_Votacion(cnx.getPropuesta(cnx.obtener(), contador),contador));
-                        myPanel.add(paneles.get(contador-1));
+                        myPanel.add(paneles.get(num_prop));
                         pack();
                         contador+=1;
-                    } else if (cnx.getPropuesta(Conexion.obtener(), contador) != null && paneles.get(contador-2).getText() != null) {
-                        if (!cnx.getPropuesta(cnx.obtener(), contador).equals(paneles.get(contador-2).getText())) {
+                        num_prop+=1;
+                    } else if (cnx.getPropuesta(Conexion.obtener(), contador) != null && paneles.size() != 0 && paneles.get(num_prop-1).getText() != null) {
+                        if (!cnx.getPropuesta(cnx.obtener(), contador).equals(paneles.get(num_prop-1).getText())) {
                             paneles.add(new Panel_Votacion(cnx.getPropuesta(Conexion.obtener(), contador),contador));
-                            myPanel.add(paneles.get(contador-1));
+                            myPanel.add(paneles.get(num_prop));
                             pack();
                             contador += 1;
-                            
+                            num_prop+=1;
                         }
 
                     }

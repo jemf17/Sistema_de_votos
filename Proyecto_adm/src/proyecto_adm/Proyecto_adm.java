@@ -6,6 +6,11 @@
 package proyecto_adm;
 //
 ///**
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 // *
 // * @author jemf
 // */
@@ -19,8 +24,14 @@ public class Proyecto_adm {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Adm adm = new Adm();
-                        adm.setVisible(true);
+                Adm adm;
+                try {
+                    adm = new Adm();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Proyecto_adm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Proyecto_adm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
